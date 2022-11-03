@@ -1,0 +1,9 @@
+{
+	"name": "shankar-adf",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "22d1fa41-55a2-45be-a9ce-4ea2c56fd3f0",
+		"tenantId": "a5011d8b-d5d6-41f5-a6ef-83a7379d38a2"
+	}
+}

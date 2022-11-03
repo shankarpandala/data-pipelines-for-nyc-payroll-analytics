@@ -1,0 +1,12 @@
+{
+	"name": "ls_adls2",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://nycadls2.dfs.core.windows.net/",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDNGRjM2RjRCLTdBQzctNEFGMy05OEUwLTNCMzU1QzM5OEE5MV9hMzIyMmNiZi05MTdmLTRlNDMtODUzMS1iN2E1NGRkY2U2M2EiDQp9"
+		}
+	}
+}
