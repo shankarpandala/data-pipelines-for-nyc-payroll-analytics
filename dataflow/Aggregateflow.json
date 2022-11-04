@@ -54,7 +54,7 @@
 				"          EmployeeID as string,",
 				"          LastName as string,",
 				"          FirstName as string,",
-				"          AgencyStartDate as date,",
+				"          AgencyStartDate as string,",
 				"          WorkLocationBorough as string,",
 				"          TitleCode as string,",
 				"          TitleDescription as string,",
