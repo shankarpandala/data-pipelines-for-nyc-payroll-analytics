@@ -90,7 +90,6 @@
 				"          EmployeeID,",
 				"          LastName,",
 				"          FirstName,",
-				"          AgencyStartDate,",
 				"          WorkLocationBorough,",
 				"          TitleCode,",
 				"          TitleDescription,",
