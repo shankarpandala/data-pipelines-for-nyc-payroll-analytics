@@ -78,7 +78,7 @@
 				"filter1 derive(TotalPaid = RegularGrossPaid + TotalOTPaid+TotalOtherPay) ~> TotalPaid",
 				"TotalPaid aggregate(groupBy(AgencyName,",
 				"          FiscalYear),",
-				"     TotalPaid = sum(TotalPaid)) ~> aggregate1",
+				"     TotalPaid = sum(toFloat(TotalPaid))) ~> aggregate1",
 				"aggregate1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
