@@ -19,15 +19,8 @@
 						"referenceName": "Aggregateflow",
 						"type": "DataFlowReference",
 						"parameters": {
-							"dataflow_param_fiscalyear": "2020"
+							"dataflow_param_fiscalyear": "toInteger(FiscalYear)"
 						}
-					},
-					"staging": {
-						"linkedService": {
-							"referenceName": "ls_adls2",
-							"type": "LinkedServiceReference"
-						},
-						"folderPath": "adlsnycpayroll-shankar-p/dirstaging"
 					},
 					"compute": {
 						"coreCount": 8,
