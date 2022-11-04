@@ -75,7 +75,7 @@
 				"     ignoreNoFilesFound: false) ~> source2",
 				"source1, source2 union(byName: true)~> union1",
 				"union1 filter(toInteger(FiscalYear) >= $dataflow_param_fiscalyear) ~> filter1",
-				"filter1 derive(TotalPaid = RegularGrossPaid + TotalOTPaid+TotalOtherPay) ~> TotalPaid",
+				"filter1 derive(TotalPaid = toFloat(RegularGrossPaid) + toFloat(TotalOTPaid)+toFloat(TotalOtherPay)) ~> TotalPaid",
 				"TotalPaid aggregate(groupBy(AgencyName,",
 				"          FiscalYear),",
 				"     TotalPaid = sum(toFloat(TotalPaid))) ~> aggregate1",
