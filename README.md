@@ -2,13 +2,11 @@
 
 ## Context of the project
 
-The City of New York would like to develop a Data Analytics platform on Azure Synapse Analytics to accomplish two primary objectives:
+The City of New York wants to create a data analytics platform using Azure Synapse Analytics to achieve two main goals:
 
-- Analyze how the City's financial resources are allocated and how much of the City's budget is being devoted to overtime.
+- Examine how the city's funds are distributed and how much of its budget is set aside for overtime.
 
-- Make the data available to the interested public to show how the City’s budget is being spent on salary and overtime pay for all municipal employees.
-
-The project needs Data Engineering skills to create high-quality data pipelines that are dynamic, can be automated, and monitored for efficient operation. The project team also includes the city’s quality assurance experts who will test the pipelines to find any errors and improve overall data quality.
+- Make the information accessible to the public so that they may see how the City's budget is being used to pay salaries and overtime to all municipal employees.
 
 The source data resides in **Azure Data Lake** and needs to be processed in a NYC data warehouse in **Azure Synapse Analytics**. The source datasets consist of CSV files with Employee master data and monthly payroll data entered by various City agencies.
 
@@ -24,19 +22,13 @@ For this project, we'll work in the Azure Portal, using several Azure resources 
 - **Azure Data Factory**
 - **Azure Synapse Analytics**
 
-We will connect our **Azure pipelines** to this very Github repo and submit the URL or contents of the repository.
-
-
-# Steps to reproduce the project
-
-For all steps bellow, you can run the script files individually or run *commands\all_resources.ps1* to create all resources at once.
 
 ## Step 1 : Prepare the Data Infrastructure
 
 
 1. Create the data lake and upload data. For all sub-steps bellow, run *commands\storage_gen2.ps1*
 
-- Create an **Azure Data Lake Storage Gen2** (storage account) and associated storage container resource named *nycpayrollcontainer*. 
+- Create an **Azure Data Lake Storage Gen2** (storage account) and associated storage container. 
 
 ![ADLS](/images/adls2.PNG "ADLS")
 
@@ -63,12 +55,12 @@ For all steps bellow, you can run the script files individually or run *commands
 ![files](/images/historyfiles.PNG "files")
 
 
-2. Create an **Azure Data Factory** Resource. For this, run *commands\datafactory.ps1*
+2. Create an **Azure Data Factory** Resource.
 
 ![adf](/images/adf.PNG "adf")
 
 
-3. Create a **SQL Database** to store the current year of the payroll data. For the two sub-steps bellow, run *commands\sql_db.ps1* to create resource automatically.
+3. Create a **SQL Database** to store the current year of the payroll data. For the two sub-steps bellow
 
 - In the Azure portal, create a SQL Database resource named *nycpayroll-db*
 
@@ -79,7 +71,7 @@ For all steps bellow, you can run the script files individually or run *commands
 ![sqldatabase](/images/sqlserver.PNG "SQL Database")
 
 
-4. Create A **Synapse Analytics workspace**. For all sub-steps bellow, run *commands\synapse.ps1*
+4. Create A **Synapse Analytics workspace**. 
 
 ![synapse](/images/synapse.PNG "Synapse Workspace")
 
@@ -106,12 +98,12 @@ For all steps bellow, you can run the script files individually or run *commands
 ![linkedservices](/images/lsadls.PNG "Linked Services")
 
 
-2. In **Azure Data Factory**, create a **Linked Service** to SQL Database that has the current (2021) data. If you get a connection error, remember to add the IP address to the firewall settings in SQL DB in the Azure Portal. Name : *SqlDbCurrentData*
+2. In **Azure Data Factory**, create a **Linked Service** to SQL Database that has the current (2021) data. If you get a connection error, remember to add the IP address to the firewall settings in SQL DB in the Azure Portal. 
 
 ![linkedservices](/images/lssqldb.PNG "Linked Services")
 
 
-3. In **Azure Data Factory**, create a **Linked Service** : Create the linked service to the SQL pool. Name :  *SynapseSqlPool*
+3. In **Azure Data Factory**, create a **Linked Service** : Create the linked service to the SQL pool. 
 
 ![linkedservices](/images/lssynapse.PNG "Linked Services")
 
@@ -120,12 +112,9 @@ In the end, you should have this :
 ![linkedservices](/images/lsall.PNG"Linked Services")
 
 
-
-
-
 ## Step 3: Create Datasets in Azure Data Factory
 
-1. Create the datasets for the 2021 Payroll file on **Azure Data Lake Gen2**. Call it *dataset_2021_payroll*
+1. Create the datasets for the 2021 Payroll file on **Azure Data Lake Gen2**. 
 
 - Select DelimitedText
 - Set the path to the *nycpayroll_2021.csv* in the Data Lake
@@ -135,15 +124,15 @@ In the end, you should have this :
 
 2. Repeat the same process to create datasets for the rest of the data files in the Data Lake
 
-- *EmpMaster.csv*. Name : *dataset_EmpMaster*
+- *EmpMaster.csv*. 
 
 ![Dataset](/images/empmaster.PNG "Dataset")
 
-- *TitleMaster.csv*. Name : *dataset_TitleMaster*
+- *TitleMaster.csv*. 
 
 ![Dataset](/images/titlemaster.PNG "Dataset")
 
-- *AgencyMaster.csv*. Name : *dataset_AgencyMaster*
+- *AgencyMaster.csv*. 
 
 ![Dataset](/images/agencymaster.PNG "Dataset")
 
@@ -175,14 +164,11 @@ In the end, you should have this :
 ![Pipeline](/images/masterpipeline.PNG "Pipeline")
 
 
-
-
-
 ## Step 5: Data Aggregation and Parameterization
 
 In this step, we'll extract the 2021 year data and historical data, merge, aggregate and store it in **Synapse Analytics**. The aggregation will be on Agency Name, Fiscal Year and TotalPaid.
 
-1. Create a Summary table in Synapse with the SQL script from *summary_table.sql* and create a dataset named *table_synapse_nycpayroll_summary*
+1. Create a Summary table in Synapse with the SQL script 
 
 2. Create a new dataset for the **Azure Data Lake Gen2** folder that contains the historical files.
 
@@ -191,7 +177,7 @@ In this step, we'll extract the 2021 year data and historical data, merge, aggre
 3. Create new data flow and name it Dataflow Aggregate Data
 
 - Create a data flow level parameter for Fiscal Year
-- Add first Source for *table_sqldb_nyc_payroll_data* table
+- Add first Source for nyc payroll SQL table
 - Add second Source for the Azure Data Lake history folder
 
 4. Create a new Union activity in the data flow and Union with history files
@@ -229,6 +215,11 @@ In Settings, select Truncate Table
 
 11. Monitor the Pipeline run and take a screenshot of the finished pipeline run.
 
+**Aggregation Dataflow**
+![Aggregation Flow](/images/aggregateflow.PNG "Aggregation Flow")
+
+**Final Summary in Synapse**
+![final summary](/images/finalsummary.PNG "Final Output")
 
 ## Step 6: Connect the Project to Github
 
