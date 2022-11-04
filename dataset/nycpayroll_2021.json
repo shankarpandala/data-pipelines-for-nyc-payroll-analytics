@@ -49,10 +49,6 @@
 				"type": "String"
 			},
 			{
-				"name": "AgencyStartDate",
-				"type": "String"
-			},
-			{
 				"name": "WorkLocationBorough",
 				"type": "String"
 			},
